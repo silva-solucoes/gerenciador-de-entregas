@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
         <div class="d-flex justify-content-center"><img class="mb-4" src="{{asset('img/logo-evento.png')}}" alt="" height="120"></div>
-        <h1 class="h3 mb-3 fw-normal">Recuperação de Senha</h1>
+        <h1 class="h3 mb-3 fw-normal"><b>Recuperação de Senha</b></h1>
         <p class="text-muted">Informe seu e-mail cadastrado para receber um link de redefinição de senha.</p>
 
         <div class="form-floating">
