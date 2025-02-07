@@ -1,0 +1,36 @@
+.bg-color-body{
+    font-family: 'Archivo', sans-serif;
+    background-color: #BB35E7;
+}
+
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #7319A3;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(115, 25, 163, .25);
+}
+
+.cta-btn,
+.cta-btn:focus {
+    color: #ffffff;
+    background: #7319A3;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.cta-btn:hover,
+.cta-btn:focus:hover {
+    color: #ffffff;
+    background: color-mix(in srgb, #7319A3, transparent 15%);
+}
+
+a{
+    color: #ffffff;
+}
+
+a:hover{
+    color: color-mix(in srgb, #ffffff, transparent 15%);
+}
