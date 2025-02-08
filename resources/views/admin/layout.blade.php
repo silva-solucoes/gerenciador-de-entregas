@@ -39,7 +39,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
                 <a href="{{route('admin.index')}}" class="logo">
-                    <img src="{{asset('img/logotipo-prefeitura-branco.png')}}" alt="navbar brand" class="navbar-brand" height="50" />
+                    <img src="{{asset('img/logo-evento.png')}}" alt="navbar brand" class="navbar-brand" height="50" />
                 </a>
                 <div class="nav-toggle">
                     <button class="btn btn-toggle toggle-sidebar">
@@ -58,6 +58,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
             <div class="sidebar-content">
                 <ul class="nav nav-secondary">
+                    <!-- Painel de Controle (todos os usuários) -->
                     <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
                         <a href="{{ route('admin.index') }}" class="nav-link {{ Request::is('admin') ? 'active' : '' }}">
                             <i class="fas fa-home"></i>
@@ -70,6 +71,10 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </span>
                         <h4 class="text-section">Funcionalidades</h4>
                     </li>
+
+                    @if(Auth::user()->role == 'admin')
+
+                    <!-- Gerenciar Usuários (Apenas Admin) -->
                     <li class="nav-item {{ Request::is('admin/users*') ? 'active' : '' }}">
                         <a data-bs-toggle="collapse" href="#base" aria-expanded="{{ Request::is('admin/users*') ? 'true' : 'false' }}">
                             <i class="fas fa-users"></i>
@@ -96,27 +101,8 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                            <i class="fas fa-file-alt"></i>
-                            <p>Gerenciar Legislações</p>
-                            <span class="caret"></span>
-                        </a>
-                        <div class="collapse" id="sidebarLayouts">
-                            <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="{{route('admin.listLaws')}}">
-                                        <span class="sub-item">Listar Legislações</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{route('admin.cadastrarLegislacao')}}">
-                                        <span class="sub-item">Cadastrar Legislação</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+
+                    <!-- Relatórios e Análises (Apenas Admin) -->
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#forms">
                             <i class="fas fa-chart-line"></i>
@@ -125,24 +111,14 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </a>
                         <div class="collapse" id="forms">
                             <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Relatórios Personalizáveis</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Exportação de Dados</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Análises Gráficas</span>
-                                    </a>
-                                </li>
+                                <li><a href="#"><span class="sub-item">Relatórios Personalizáveis</span></a></li>
+                                <li><a href="#"><span class="sub-item">Exportação de Dados</span></a></li>
+                                <li><a href="#"><span class="sub-item">Análises Gráficas</span></a></li>
                             </ul>
                         </div>
                     </li>
+
+                    <!-- Configurações (Apenas Admin) -->
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#tables">
                             <i class="fas fa-cog"></i>
@@ -151,19 +127,13 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </a>
                         <div class="collapse" id="tables">
                             <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Configurações Gerais</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Gerenciamento de Permissões</span>
-                                    </a>
-                                </li>
+                                <li><a href="#"><span class="sub-item">Configurações Gerais</span></a></li>
+                                <li><a href="#"><span class="sub-item">Gerenciamento de Permissões</span></a></li>
                             </ul>
                         </div>
                     </li>
+
+                    <!-- Segurança (Apenas Admin) -->
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#seguranca">
                             <i class="fas fa-shield-alt"></i>
@@ -172,26 +142,32 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </a>
                         <div class="collapse" id="seguranca">
                             <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Logs de Acesso e Atividades</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Autenticação em Dois Fatores</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="sub-item">Gerenciamento de Sessões</span>
-                                    </a>
-                                </li>
+                                <li><a href="#"><span class="sub-item">Logs de Acesso e Atividades</span></a></li>
+                                <li><a href="#"><span class="sub-item">Autenticação em Dois Fatores</span></a></li>
+                                <li><a href="#"><span class="sub-item">Gerenciamento de Sessões</span></a></li>
                             </ul>
                         </div>
                     </li>
+                    @endif
+
+                    <!-- Gerenciar Entregas (Admin e Operador) -->
                     <li class="nav-item">
-                        <a data-bs-toggle="collapse" href="#">
+                        <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Gerenciar Entregas</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="sidebarLayouts">
+                            <ul class="nav nav-collapse">
+                                <li><a href="{{route('admin.listLaws')}}"><span class="sub-item">Listar Entregas</span></a></li>
+                                <li><a href="{{route('admin.cadastrarLegislacao')}}"><span class="sub-item">Cadastrar Entrega</span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Sair (Todos os usuários) -->
+                    <li class="nav-item">
+                        <a href="{{route('logout')}}">
                             <i class="fas fa-sign-out-alt"></i>
                             <p>Sair</p>
                         </a>

@@ -43,7 +43,7 @@ class AuthController extends Controller
             }
 
             // Verificar a role do usuário
-            if ($user->role === 'admin') {
+            if ($user->role === 'admin' || $user->role === 'operador') {
                 // Registrar log de login com sucesso
                 //LogController::storeLog(Auth::id(), 'login', "Usuário {$user->name} realizou login com sucesso.", $request->ip());
 
@@ -70,5 +70,11 @@ class AuthController extends Controller
     /**
      * Logout do usuário
      */
-    public function logout(Request $request) {}
+    public function logout(Request $request) {
+        // Realizar o logout do usuário
+        Auth::logout();
+
+        // Redirecionar para a página de login após o logout
+        return redirect()->route('login');
+    }
 }

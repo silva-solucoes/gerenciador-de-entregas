@@ -8,6 +8,22 @@
         <h1 class="h3 mb-3 fw-normal text-white"><b>Login</b></h1>
         <p class="text-white">Faça login e insira seus dados de acesso no campo abaixo.</p>
 
+        @if(session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="form-floating">
             <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
             <label for="floatingInput">E-mail</label>
@@ -54,9 +70,7 @@
     textarea:focus,
     select:focus {
         outline: 2px solid #BB35E7;
-        /* Define a cor da borda ao focar */
         border-color: #BB35E7;
-        /* Muda a cor da borda padrão */
     }
 
     .form-signin input[type="email"] {
