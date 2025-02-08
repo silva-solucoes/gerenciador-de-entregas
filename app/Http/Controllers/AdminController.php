@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -19,11 +20,7 @@ class AdminController extends Controller
     public function index()
     {
         // Exemplo de inicialização de $lawCount
-        $userCount = User::orderBy('created_at', 'desc')->get();
-        $logsCount = Log::count();
 
-        $recentLogs = Log::orderBy('created_at', 'desc')->take(5)->get();
-
-        return view('admin.dashboard', ['user' => Auth::user()], compact('userCount', 'logsCount', 'cont', 'recentLogs'));
+        return view('admin.index', ['user' => Auth::user()]);
     }
 }

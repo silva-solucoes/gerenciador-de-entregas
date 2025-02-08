@@ -49,8 +49,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/laws/cadastrar', [AdminController::class, 'showFormLaws'])->name('admin.cadastrarLegislacao');
 
     // Exibir logs do sistema
-    Route::get('admin/logs/user', [AdminController::class, 'showLogsUser'])->name('admin.logsUser');
-    Route::get('admin/logs', [AdminController::class, 'logs'])->name('admin.logs');
+    //Route::get('admin/logs/user', [AdminController::class, 'showLogsUser'])->name('admin.logsUser');
+    //Route::get('admin/logs', [AdminController::class, 'logs'])->name('admin.logs');
 
     // Exibir e editar perfil do administrador
     Route::get('admin/profile', [AdminController::class, 'profile'])->name('admin.profile');

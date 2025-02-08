@@ -89,7 +89,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                                     </a>
                                 </li>
                                 <li class="{{ Request::is('admin/users/logs*') ? 'active' : '' }}">
-                                    <a href="{{route('admin.logsUser')}}">
+                                    <a href="#">
                                         <span class="sub-item">Logs de Atividade de Usuários</span>
                                     </a>
                                 </li>

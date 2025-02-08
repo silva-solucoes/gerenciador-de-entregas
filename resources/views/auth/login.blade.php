@@ -5,8 +5,8 @@
     <form id="loginForm" method="POST" action="{{ route('login') }}">
         @csrf
         <div class="d-flex justify-content-center"><img class="mb-4" src="{{asset('img/logo-evento.png')}}" alt="" height="120"></div>
-        <h1 class="h3 mb-3 fw-normal"><b>Login</b></h1>
-        <p>Faça login e insira seus dados de acesso no campo abaixo.</p>
+        <h1 class="h3 mb-3 fw-normal text-white"><b>Login</b></h1>
+        <p class="text-white">Faça login e insira seus dados de acesso no campo abaixo.</p>
 
         <div class="form-floating">
             <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
@@ -19,7 +19,7 @@
 
         <div class="form-check text-start my-3">
             <input class="form-check-input" name="remember" type="checkbox" value="remember-me" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label text-white" for="flexCheckDefault">
                 Lembre de mim
             </label>
         </div>
@@ -29,7 +29,6 @@
         </div>
         <div class="d-flex justify-content-center">
             <p class="mt-5 mb-3 text-body-secondary">&copy; {{ date('Y') }} Prefeitura Municipal de Lajes.</p>
-
         </div>
     </form>
 </main>
