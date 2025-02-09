@@ -9,6 +9,8 @@ class Foliao extends Model
 {
     use HasFactory;
 
+    protected $table = 'folioes';
+
     protected $fillable = [
         'nome_completo',
         'cpf',

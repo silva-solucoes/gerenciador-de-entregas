@@ -159,7 +159,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </a>
                         <div class="collapse" id="sidebarLayouts">
                             <ul class="nav nav-collapse">
-                                <li><a href="{{route('admin.listLaws')}}"><span class="sub-item">Listar Entregas</span></a></li>
+                                <li><a href="{{route('admin.listaEntregas')}}"><span class="sub-item">Listar Entregas</span></a></li>
                                 <li><a href="{{route('admin.cadastrarLegislacao')}}"><span class="sub-item">Cadastrar Entrega</span></a></li>
                             </ul>
                         </div>

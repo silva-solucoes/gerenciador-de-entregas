@@ -30,6 +30,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Painel de administração
     Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
+    Route::get('admin/listar-entregas', [AdminController::class, 'showListaEntregas'])->name('admin.listaEntregas');
+
     // Exibir usuários
     Route::get('admin/users', [AdminController::class, 'users'])->name('admin.users');
 
