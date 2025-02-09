@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('logs_entregas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('foliao_id')->constrained('folioes')->onDelete('cascade');
-            $table->foreignId('operador_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamp('data_entrega')->useCurrent();
             $table->timestamps();
         });

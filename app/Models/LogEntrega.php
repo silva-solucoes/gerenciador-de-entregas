@@ -9,9 +9,11 @@ class LogEntrega extends Model
 {
     use HasFactory;
 
+    protected $table = 'logs_entregas'; // Nome correto da tabela
+
     protected $fillable = [
         'foliao_id',
-        'operador_id',
+        'user_id',
         'data_entrega',
     ];
 
@@ -24,6 +26,6 @@ class LogEntrega extends Model
     // Relacionamento: Cada log pertence a um operador (usuário)
     public function operador()
     {
-        return $this->belongsTo(User::class, 'operador_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
