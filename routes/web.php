@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\PortalTransparenciaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [Controller::class, 'index']);
+Route::get('/portal-pessoa', [PortalTransparenciaController::class, 'index'])->name('portal.index');
+Route::post('/portal-pessoa/buscar', [PortalTransparenciaController::class, 'buscarPessoa'])->name('portal.buscar');
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
@@ -32,6 +34,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('admin/listar-entregas', [AdminController::class, 'showListaEntregas'])->name('admin.listaEntregas');
 
+    Route::get('admin/cadastar-entrega', [AdminController::class, 'showFormEntrega'])->name('admin.cadastrarEntrega');
+
+    Route::get('/buscar-nome/{cpf}', [PortalTransparenciaController::class, 'buscarNome']);
+
+    Route::post('/admin/submeter-entrega', [AdminController::class, 'cadastrarEntrega'])->name('entregas.store');
     // Exibir usuários
     Route::get('admin/users', [AdminController::class, 'users'])->name('admin.users');
 

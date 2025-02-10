@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Foliao;
 use App\Models\LogEntrega;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -48,5 +49,46 @@ class AdminController extends Controller
             ->paginate(10);
 
         return view('admin.listarEntregas', compact('entregas'));
+    }
+
+    public function showFormEntrega()
+    {
+        return view('admin.addEntrega');
+    }
+
+    public function cadastrarEntrega(Request $request)
+    {
+        // Remove a formatação do CPF (deixa apenas os números)
+        $cpf = preg_replace('/\D/', '', $request->cpf);
+
+        // Verifica se o CPF já recebeu um abadá
+        $foliaoJaRecebeu = LogEntrega::whereHas('foliao', function ($query) use ($cpf) {
+            $query->where('cpf', $cpf);
+        })->exists();
+
+        if ($foliaoJaRecebeu) {
+            return back()->with('error', '<b>Entrega não autorizado:</b> Este CPF <b>' . $request->cpf . '</b> já recebeu um abadá!');
+        }
+
+        // Busca o folião pelo CPF
+        $foliao = Foliao::where('cpf', $cpf)->first();
+
+        // Se o folião não existir, cadastra automaticamente
+        if (!$foliao) {
+            $foliao = Foliao::create([
+                'nome_completo' => $request->nome_completo,
+                'cpf' => $cpf, // Armazena o CPF sem formatação
+                'abada_entregue' => $request->quantidade,
+            ]);
+        }
+
+        // Cadastra a entrega do abadá
+        LogEntrega::create([
+            'foliao_id' => $foliao->id,
+            'user_id' => auth()->id(),
+            'created_at' => now(),
+        ]);
+
+        return back()->with('success', 'Entrega cadastrada com sucesso!');
     }
 }

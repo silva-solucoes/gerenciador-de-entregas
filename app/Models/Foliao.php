@@ -14,6 +14,7 @@ class Foliao extends Model
     protected $fillable = [
         'nome_completo',
         'cpf',
+        'abada_entregue'
     ];
 
     // Relacionamento: Um folião pode ter uma entrega registrada

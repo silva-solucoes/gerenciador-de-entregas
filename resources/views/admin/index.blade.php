@@ -9,8 +9,8 @@
                 <h6 class="op-7 mb-2">Gerenciador de Entregas</h6>
             </div>
             <div class="ms-md-auto py-2 py-md-0">
-                <a href="#" class="btn btn-label-info btn-round me-2">Gerenciar</a>
-                <a href="#" class="btn btn-primary btn-round">Cadastrar Entrega</a>
+                <a href="{{route('admin.listaEntregas')}}" class="btn btn-label-info btn-round me-2">Gerenciar</a>
+                <a href="{{route('admin.cadastrarEntrega')}}" class="btn btn-primary btn-round">Cadastrar Entrega</a>
             </div>
         </div>
 
