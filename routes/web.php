@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PortalTransparenciaController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Crypt;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,8 +49,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Cadastrar Usuário
     Route::get('admin/users/cadastrar', [AdminController::class, 'showFormUsuario'])->name('admin.cadastrarUser');
 
+    Route::post('/admin/users/novo-usuario', [AdminController::class, 'cadastrarUser'])->name('admin.novoUser');
+
     // Editar Usuário
-    Route::get('admin/users/editar', [AdminController::class, 'showFormEditUsuario'])->name('admin.editarUser');
+    Route::get('admin/users/editar/{encryptedId}', [AdminController::class, 'showFormEditUsuario'])
+    ->name('admin.editarUser');
+
+    Route::put('/admin/users/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
 
     //Exibir legislações
     Route::get('admin/laws/visualizar', [AdminController::class, 'showFormLaws'])->name('admin.listLaws');
@@ -67,4 +73,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Excluir usuário
     Route::delete('admin/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.destroyUser');
+
+    Route::get('/admin/entregas/exportar', [AdminController::class, 'exportarEntregasCSV'])->name('exportarEntregas');
+
+    Route::get('admin/relatorio/personalizado', [AdminController::class, 'showRelatorio'])->name('admin.showRelatorio');
+
+    Route::get('/admin/relatorio-entregas', [AdminController::class, 'gerarRelatorioEntregas'])
+    ->name('admin.relatorio.entregas');
+
+    Route::get('/testar-view', function () {
+        return view('admin.relatorios.entregas');
+    });
+
 });

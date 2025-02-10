@@ -93,11 +93,6 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                                         <span class="sub-item">Cadastrar Usuário</span>
                                     </a>
                                 </li>
-                                <li class="{{ Request::is('admin/users/logs*') ? 'active' : '' }}">
-                                    <a href="#">
-                                        <span class="sub-item">Logs de Atividade de Usuários</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
@@ -111,8 +106,8 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </a>
                         <div class="collapse" id="forms">
                             <ul class="nav nav-collapse">
-                                <li><a href="#"><span class="sub-item">Relatórios Personalizáveis</span></a></li>
-                                <li><a href="#"><span class="sub-item">Exportação de Dados</span></a></li>
+                                <li><a href="{{route('admin.showRelatorio')}}"><span class="sub-item">Relatórios Personalizáveis</span></a></li>
+                                <li><a href="{{ route('exportarEntregas') }}"><span class="sub-item">Exportação de Dados</span></a></li>
                                 <li><a href="#"><span class="sub-item">Análises Gráficas</span></a></li>
                             </ul>
                         </div>
@@ -151,16 +146,20 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                     @endif
 
                     <!-- Gerenciar Entregas (Admin e Operador) -->
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::is('admin/listar-entregas*') || Request::is('admin/cadastar-entrega*') ? 'active' : '' }}">
                         <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-box"></i>
                             <p>Gerenciar Entregas</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="sidebarLayouts">
                             <ul class="nav nav-collapse">
-                                <li><a href="{{route('admin.listaEntregas')}}"><span class="sub-item">Listar Entregas</span></a></li>
-                                <li><a href="{{route('admin.cadastrarEntrega')}}"><span class="sub-item">Cadastrar Entrega</span></a></li>
+                                <li class="{{ Request::is('admin/listar-entregas*') ? 'active' : ''  }}">
+                                    <a href="{{route('admin.listaEntregas')}}"><span class="sub-item">Listar Entregas</span></a>
+                                </li>
+                                <li class="{{ Request::is('admin/cadastar-entrega*') ? 'active' : '' }}">
+                                    <a href="{{route('admin.cadastrarEntrega')}}"><span class="sub-item">Cadastrar Entrega</span></a>
+                                </li>
                             </ul>
                         </div>
                     </li>
