@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Entregas de Abadás</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Archivo', sans-serif;
@@ -18,7 +19,7 @@
         }
 
         .header img {
-            max-width: 120px;
+            max-width: 220px;
         }
 
         .title {
@@ -63,8 +64,13 @@
             font-size: 12px;
         }
 
+        .text-start {
+            text-align: left;
+        }
+
         @page {
-            margin: 20px;
+            margin-left: 2cm;
+            margin-right: 2cm;
         }
 
         .footer {
@@ -81,10 +87,8 @@
 
     <!-- Cabeçalho -->
     <div class="header">
-        <img src="{{ public_path('img/logo-evento.png') }}" alt="Logo">
-        <p><strong>Prefeitura Municipal de Lajes</strong></p>
-        <p>Secretaria Municipal de Comunicação - SECOM</p>
-        <p><strong>Carnaval de Todos 2025</strong></p>
+        <img src="{{ public_path('img/logo-evento.png') }}" alt="Logo" class="logo">
+        <h3><strong>Prefeitura Municipal de Lajes</strong><br>Secretaria Municipal de Comunicação - SECOM<br><strong>Carnaval de Todos 2025</strong></h3>
     </div>
 
     <!-- Título -->
@@ -113,7 +117,7 @@
             @foreach($entregas as $index => $entrega)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ strtoupper($entrega->foliao) }}</td>
+                <td class="text-start">{{ strtoupper($entrega->foliao) }}</td>
                 <td>{{ $entrega->cpf }}</td>
                 <td>{{ $entrega->quantidade_kit }}</td>
                 <td>{{ $entrega->operador }}</td>
@@ -126,7 +130,7 @@
     <!-- Rodapé -->
     <script type="text/php">
         if (isset($pdf)) {
-        $pdf->page_text(500, 820, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        $pdf->page_text(500, 800, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
     }
 </script>
 
