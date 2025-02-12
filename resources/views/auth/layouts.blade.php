@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Sistema de Leis Municipais') }}</title>
+    <title>Login | {{ config('app.name', 'Carnaval 2025') }}</title>
+    <link rel="icon" href="{{asset('img/logo-evento.png')}}" type="image/x-icon" />
 
     <!-- Estilos do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
