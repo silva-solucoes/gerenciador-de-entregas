@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Crypt;
 |
 */
 
-Route::get('/', [Controller::class, 'index']);
+Route::get('/', [AuthController::class, 'showLoginForm']);
 Route::get('/portal-pessoa', [PortalTransparenciaController::class, 'index'])->name('portal.index');
 Route::post('/portal-pessoa/buscar', [PortalTransparenciaController::class, 'buscarPessoa'])->name('portal.buscar');
 
