@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ Request::is('/') || Request::is('login') ? 'Login' : '' }} | {{ config('app.name', 'Carnaval 2025') }}</title>
+    <title>{{ Request::path() === '/' || Request::path() === 'login' ? 'Login' : (Request::path() === 'forgot-password' ? 'Esqueceu senha' : config('app.name', 'Carnaval 2025')) }}</title>
     <link rel="icon" href="{{asset('img/logo-evento.png')}}" type="image/x-icon" />
 
     <!-- Estilos do Bootstrap -->
