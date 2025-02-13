@@ -74,6 +74,25 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
 
                     @if(Auth::user()->role == 'admin')
 
+                    <!-- Gerenciar Entregas (Admin e Operador) -->
+                    <li class="nav-item {{ Request::is('admin/listar-entregas*') || Request::is('admin/cadastar-entrega*') ? 'active' : '' }}">
+                        <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                            <i class="fas fa-box"></i>
+                            <p>Gerenciar Entregas</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="sidebarLayouts">
+                            <ul class="nav nav-collapse">
+                                <li class="{{ Request::is('admin/listar-entregas*') ? 'active' : ''  }}">
+                                    <a href="{{route('admin.listaEntregas')}}"><span class="sub-item">Listar Entregas</span></a>
+                                </li>
+                                <li class="{{ Request::is('admin/cadastar-entrega*') ? 'active' : '' }}">
+                                    <a href="{{route('admin.cadastrarEntrega')}}"><span class="sub-item">Cadastrar Entrega</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                     <!-- Gerenciar Usuários (Apenas Admin) -->
                     <li class="nav-item {{ Request::is('admin/users*') ? 'active' : '' }}">
                         <a data-bs-toggle="collapse" href="#base" aria-expanded="{{ Request::is('admin/users*') ? 'true' : 'false' }}">
@@ -113,7 +132,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </div>
                     </li>
 
-                    <!-- Configurações (Apenas Admin) -->
+                    <!-- Configurações (Apenas Admin)
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#tables">
                             <i class="fas fa-cog"></i>
@@ -126,9 +145,9 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                                 <li><a href="#"><span class="sub-item">Gerenciamento de Permissões</span></a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li>-->
 
-                    <!-- Segurança (Apenas Admin) -->
+                    <!-- Segurança (Apenas Admin)
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#seguranca">
                             <i class="fas fa-shield-alt"></i>
@@ -142,27 +161,8 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                                 <li><a href="#"><span class="sub-item">Gerenciamento de Sessões</span></a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li>-->
                     @endif
-
-                    <!-- Gerenciar Entregas (Admin e Operador) -->
-                    <li class="nav-item {{ Request::is('admin/listar-entregas*') || Request::is('admin/cadastar-entrega*') ? 'active' : '' }}">
-                        <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                            <i class="fas fa-box"></i>
-                            <p>Gerenciar Entregas</p>
-                            <span class="caret"></span>
-                        </a>
-                        <div class="collapse" id="sidebarLayouts">
-                            <ul class="nav nav-collapse">
-                                <li class="{{ Request::is('admin/listar-entregas*') ? 'active' : ''  }}">
-                                    <a href="{{route('admin.listaEntregas')}}"><span class="sub-item">Listar Entregas</span></a>
-                                </li>
-                                <li class="{{ Request::is('admin/cadastar-entrega*') ? 'active' : '' }}">
-                                    <a href="{{route('admin.cadastrarEntrega')}}"><span class="sub-item">Cadastrar Entrega</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
 
                     <!-- Sair (Todos os usuários) -->
                     <li class="nav-item">
@@ -199,12 +199,14 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                 </div>
                 <!-- End Logo Header -->
             </div>
+
             <!-- Navbar Header -->
             <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
                 <div class="container-fluid">
                     <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
                     </nav>
                     <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                        @if(Auth::user()->role == 'admin')
                         <li class="nav-item topbar-icon dropdown hidden-caret">
                             <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
@@ -269,6 +271,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                                 </li>
                             </ul>
                         </li>
+                        @endif
 
                         <li class="nav-item topbar-user dropdown hidden-caret">
                             <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown"
@@ -304,18 +307,20 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                                             <div class="u-text">
                                                 <h4>{{ $user->name }}</h4>
                                                 <p class="text-muted">{{ $user->email }}</p>
-                                                <a
-                                                    href="profile.html"
-                                                    class="btn btn-xs btn-secondary btn-sm">Ver perfil</a>
+                                                <!--
+                                                <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">Ver perfil</a>
+                                                -->
                                             </div>
                                         </div>
                                     </li>
                                     <li>
+                                        <!--
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Meu perfil</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Configuração de conta</a>
                                         <div class="dropdown-divider"></div>
+                                        -->
                                         <a class="dropdown-item" href="{{route('logout')}}">Sair</a>
                                     </li>
                                 </div>
@@ -325,6 +330,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                 </div>
             </nav>
             <!-- End Navbar -->
+
         </div>
 
         <!-- Main Content -->
