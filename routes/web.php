@@ -24,7 +24,12 @@ Route::post('/portal-pessoa/buscar', [PortalTransparenciaController::class, 'bus
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
-Route::get('forgot-password',[AuthController::class, 'showEsqueceuSenha'])->name('esqueceuSenha.show');
+Route::get('forgot-password', [AuthController::class, 'showEsqueceuSenha'])->name('esqueceuSenha.show');
+Route::post('/verificacao', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+// Rotas para redefinição de senha
+Route::get('/redefinir-senha/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/redefinir-senha', [AuthController::class, 'reset'])->name('password.update');
+
 Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -53,7 +58,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Editar Usuário
     Route::get('admin/users/editar/{encryptedId}', [AdminController::class, 'showFormEditUsuario'])
-    ->name('admin.editarUser');
+        ->name('admin.editarUser');
 
     Route::put('/admin/users/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
 
@@ -79,10 +84,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/relatorio/personalizado', [AdminController::class, 'showRelatorio'])->name('admin.showRelatorio');
 
     Route::get('/admin/relatorio-entregas', [AdminController::class, 'gerarRelatorioEntregas'])
-    ->name('admin.relatorio.entregas');
+        ->name('admin.relatorio.entregas');
 
     Route::get('/testar-view', function () {
         return view('admin.relatorios.entregas');
     });
-
 });

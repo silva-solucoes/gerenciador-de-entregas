@@ -14,21 +14,38 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <form method="POST" action="{{ route('password.update') }}">
         @csrf
+        <input type="hidden" name="token" value="{{ $token }}">
+
         <div class="d-flex justify-content-center">
             <img class="mb-4" src="{{ asset('img/logo-evento.png') }}" alt="" height="120">
         </div>
-        <h1 class="h3 mb-3 fw-normal text-white"><b>Recuperação de Senha</b></h1>
-        <p class="text-white">Informe seu e-mail cadastrado para receber um link de redefinição de senha.</p>
 
-        <div class="form-floating">
-            <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="name@example.com" required>
+        <h1 class="h3 mb-3 fw-normal text-white"><b>Redefinir Senha</b></h1>
+        <p class="text-white">Crie uma nova senha para sua conta.</p>
+
+        <!-- Campo de E-mail (preenchido automaticamente) -->
+        <div class="form-floating mb-3">
+            <input type="email" name="email" class="form-control" id="floatingEmail" value="{{ request()->email }}" readonly required>
             <label for="floatingEmail">E-mail</label>
         </div>
 
-        <button class="btn cta-btn w-100 py-2 mt-3" type="submit">Enviar Link de Recuperação</button>
+        <!-- Campo de Nova Senha -->
+        <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Nova Senha" required>
+            <label for="floatingPassword">Nova Senha</label>
+        </div>
+
+        <!-- Campo de Confirmação de Senha -->
+        <div class="form-floating mb-3">
+            <input type="password" name="password_confirmation" class="form-control" id="floatingConfirmPassword" placeholder="Confirme a Senha" required>
+            <label for="floatingConfirmPassword">Confirme a Senha</label>
+        </div>
+
+        <button class="btn cta-btn w-100 py-2 mt-3" type="submit">Redefinir Senha</button>
         <p class="mt-3 mb-3 text-white">Lembrou a senha? <a href="{{ route('login') }}">Faça login</a></p>
+
         <div class="d-flex justify-content-center">
             <p class="mt-5 mb-3 text-body-secondary">&copy; {{ date('Y') }} Prefeitura Municipal de Lajes.</p>
         </div>

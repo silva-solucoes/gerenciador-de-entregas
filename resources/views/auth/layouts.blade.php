@@ -22,7 +22,7 @@
 <body class="d-flex align-items-center py-4 bg-color-body">
 
     <!-- Conteúdo principal -->
-    <div class="container mt-5">
+    <div class="container">
         @yield('content')
     </div>
 
