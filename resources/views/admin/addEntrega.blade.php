@@ -205,6 +205,9 @@
 
         campoNome.addEventListener("input", validarCampos);
     });
+    document.getElementById("nomeCompleto").addEventListener("input", function() {
+        this.value = this.value.toUpperCase();
+    });
 </script>
 
 @endsection
