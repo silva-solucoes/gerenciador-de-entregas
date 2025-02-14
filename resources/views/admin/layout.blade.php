@@ -72,16 +72,14 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         <h4 class="text-section">Funcionalidades</h4>
                     </li>
 
-                    @if(Auth::user()->role == 'admin')
-
                     <!-- Gerenciar Entregas (Admin e Operador) -->
-                    <li class="nav-item {{ Request::is('admin/listar-entregas*') || Request::is('admin/cadastar-entrega*') ? 'active' : '' }}">
+                    <li class="nav-item {{ Request::is('admin/listar-entregas*') || Request::is('admin/cadastar-entrega*') ? 'active submenu' : '' }}">
                         <a data-bs-toggle="collapse" href="#sidebarLayouts">
                             <i class="fas fa-box"></i>
                             <p>Gerenciar Entregas</p>
                             <span class="caret"></span>
                         </a>
-                        <div class="collapse" id="sidebarLayouts">
+                        <div class="{{ Request::is('admin/listar-entregas*') || Request::is('admin/cadastar-entrega*') ? 'collapse show' : 'collapse' }}" id="sidebarLayouts">
                             <ul class="nav nav-collapse">
                                 <li class="{{ Request::is('admin/listar-entregas*') ? 'active' : ''  }}">
                                     <a href="{{route('admin.listaEntregas')}}"><span class="sub-item">Listar Entregas</span></a>
@@ -93,8 +91,10 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         </div>
                     </li>
 
+                    @if(Auth::user()->role == 'admin')
+
                     <!-- Gerenciar Usuários (Apenas Admin) -->
-                    <li class="nav-item {{ Request::is('admin/users*') ? 'active' : '' }}">
+                    <li class="nav-item {{ Request::is('admin/users*') ? 'active submenu' : '' }}">
                         <a data-bs-toggle="collapse" href="#base" aria-expanded="{{ Request::is('admin/users*') ? 'true' : 'false' }}">
                             <i class="fas fa-users"></i>
                             <p>Gerenciar Usuários</p>
@@ -117,15 +117,15 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                     </li>
 
                     <!-- Relatórios e Análises (Apenas Admin) -->
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::is('admin/relatorio*') ? 'active submenu' : '' }}">
                         <a data-bs-toggle="collapse" href="#forms">
                             <i class="fas fa-chart-line"></i>
                             <p>Relatórios e Análises</p>
                             <span class="caret"></span>
                         </a>
-                        <div class="collapse" id="forms">
+                        <div class="collapse {{ Request::is('admin/relatorio*') ? 'show' : '' }}" id="forms">
                             <ul class="nav nav-collapse">
-                                <li><a href="{{route('admin.showRelatorio')}}"><span class="sub-item">Relatórios Personalizáveis</span></a></li>
+                                <li class="{{ Request::is('admin/relatorio/personalizado*') ? 'active' : '' }}"><a href="{{route('admin.showRelatorio')}}"><span class="sub-item">Relatórios Personalizáveis</span></a></li>
                                 <li><a href="{{ route('exportarEntregas') }}"><span class="sub-item">Exportação de Dados</span></a></li>
                                 <li><a href="#"><span class="sub-item">Análises Gráficas</span></a></li>
                             </ul>
@@ -210,64 +210,19 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                         <li class="nav-item topbar-icon dropdown hidden-caret">
                             <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <span class="notification">4</span>
+                                <span class="notification">0</span>
                             </a>
                             <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                 <li>
-                                    <div class="dropdown-title">
-                                        Você tem 4 novas notificações
-                                    </div>
+                                    <div class="dropdown-title">Nenhuma nova notificação</div>
                                 </li>
                                 <li>
                                     <div class="notif-scroll scrollbar-outer">
-                                        <div class="notif-center">
-                                            <a href="#">
-                                                <div class="notif-icon notif-primary">
-                                                    <i class="fa fa-user-plus"></i>
-                                                </div>
-                                                <div class="notif-content">
-                                                    <span class="block"> New user registered </span>
-                                                    <span class="time">5 minutes ago</span>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="notif-icon notif-success">
-                                                    <i class="fa fa-comment"></i>
-                                                </div>
-                                                <div class="notif-content">
-                                                    <span class="block">
-                                                        Rahmad commented on Admin
-                                                    </span>
-                                                    <span class="time">12 minutes ago</span>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="notif-img">
-                                                    <img
-                                                        src="assets/img/profile2.jpg"
-                                                        alt="Img Profile" />
-                                                </div>
-                                                <div class="notif-content">
-                                                    <span class="block">
-                                                        Reza send messages to you
-                                                    </span>
-                                                    <span class="time">12 minutes ago</span>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="notif-icon notif-danger">
-                                                    <i class="fa fa-heart"></i>
-                                                </div>
-                                                <div class="notif-content">
-                                                    <span class="block"> Farrah liked Admin </span>
-                                                    <span class="time">17 minutes ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
+                                        <div class="notif-center"></div>
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="see-all" href="javascript:void(0);">Ver todas as notificações<i class="fa fa-angle-right"></i></a>
+                                    <a class="see-all" href="#">Ver todas as notificações<i class="fa fa-angle-right"></i></a>
                                 </li>
                             </ul>
                         </li>
@@ -321,6 +276,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                                         <a class="dropdown-item" href="#">Configuração de conta</a>
                                         <div class="dropdown-divider"></div>
                                         -->
+                                        <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{route('logout')}}">Sair</a>
                                     </li>
                                 </div>
@@ -527,6 +483,9 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @yield('scripts')
+
     <!--   Core JS Files   -->
     <script src="{{asset('js/admin/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset('js/admin/popper.min.js')}}"></script>
@@ -646,9 +605,62 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                 },
             },
         });
-    </script>
 
-    @yield('scripts')
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("JavaScript carregado corretamente!");
+
+            let novasEntregas = [{
+                    mensagem: "Novo abadá entregue a João",
+                    tempo: "2 minutos atrás",
+                    icone: "fa fa-check-circle",
+                    tipo: "notif-success"
+                },
+                {
+                    mensagem: "Novo abadá entregue a Maria",
+                    tempo: "5 minutos atrás",
+                    icone: "fa fa-check-circle",
+                    tipo: "notif-primary"
+                }
+            ];
+
+            function atualizarNotificacoes() {
+                let notifContainer = document.querySelector(".notif-center");
+                let notifCount = document.querySelector(".notification");
+                let dropdownTitle = document.querySelector(".dropdown-title");
+
+                if (!notifContainer || !notifCount || !dropdownTitle) {
+                    console.error("Erro: Elementos não encontrados.");
+                    return;
+                }
+
+                notifContainer.innerHTML = "";
+                if (novasEntregas.length > 0) {
+                    novasEntregas.forEach(entrega => {
+                        let notifHTML = `
+                    <a href="#">
+                        <div class="notif-icon ${entrega.tipo}">
+                            <i class="${entrega.icone}"></i>
+                        </div>
+                        <div class="notif-content">
+                            <span class="block">${entrega.mensagem}</span>
+                            <span class="time">${entrega.tempo}</span>
+                        </div>
+                    </a>
+                `;
+                        notifContainer.innerHTML += notifHTML;
+                    });
+
+                    notifCount.textContent = novasEntregas.length;
+                    dropdownTitle.textContent = `Você tem ${novasEntregas.length} novas notificações`;
+                } else {
+                    notifCount.textContent = "0";
+                    dropdownTitle.textContent = "Nenhuma nova notificação";
+                }
+            }
+
+            atualizarNotificacoes();
+        });
+    </script>
     </body>
 
 </html>

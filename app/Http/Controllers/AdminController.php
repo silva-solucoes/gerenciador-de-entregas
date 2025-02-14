@@ -39,17 +39,35 @@ class AdminController extends Controller
 
     public function showListaEntregas()
     {
-        $entregas = LogEntrega::select(
-            'logs_entregas.id',
-            'users.name as entregador',
-            'folioes.nome_completo as foliao',
-            'folioes.cpf',
-            'logs_entregas.created_at as data_entrega'
-        )
-            ->join('users', 'logs_entregas.user_id', '=', 'users.id')
-            ->join('folioes', 'logs_entregas.foliao_id', '=', 'folioes.id')
-            ->orderByDesc('logs_entregas.id') // Ordenando pelo ID de forma decrescente
-            ->paginate(10);
+        // Obtém o usuário autenticado
+        $user = auth()->user();
+
+        if ($user->role === 'admin') {
+            $entregas = LogEntrega::select(
+                'logs_entregas.id',
+                'users.name as entregador',
+                'folioes.nome_completo as foliao',
+                'folioes.cpf',
+                'logs_entregas.created_at as data_entrega'
+            )
+                ->join('users', 'logs_entregas.user_id', '=', 'users.id')
+                ->join('folioes', 'logs_entregas.foliao_id', '=', 'folioes.id')
+                ->orderByDesc('logs_entregas.id')
+                ->get();
+        } else { // Usuário operador
+            $entregas = LogEntrega::select(
+                'logs_entregas.id',
+                'users.name as entregador',
+                'folioes.nome_completo as foliao',
+                'folioes.cpf',
+                'logs_entregas.created_at as data_entrega'
+            )
+                ->join('users', 'logs_entregas.user_id', '=', 'users.id')
+                ->join('folioes', 'logs_entregas.foliao_id', '=', 'folioes.id')
+                ->where('logs_entregas.user_id', $user->id) // Apenas as entregas do operador logado
+                ->orderByDesc('logs_entregas.id')
+                ->get();
+        }
 
         return view('admin.listarEntregas', compact('entregas'));
     }
@@ -234,8 +252,8 @@ class AdminController extends Controller
 
         // Criar PDF
         $pdf = PDF::loadView('admin.relatorios.entregas', compact('entregas', 'totalEntregas'))
-         ->setPaper('A4', 'portrait')
-         ->setOption('footer-right', 'Página [page] de [topage]');
+            ->setPaper('A4', 'portrait')
+            ->setOption('footer-right', 'Página [page] de [topage]');
 
         $nomeArquivo = 'Relatorio_Entregas_Abadas_' . Carbon::now()->format('d-m-Y_H-i-s') . '.pdf';
         // Retornar PDF para visualização no navegador

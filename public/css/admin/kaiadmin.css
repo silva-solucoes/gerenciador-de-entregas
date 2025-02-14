@@ -1692,12 +1692,12 @@ body[data-background-color="dark"] .border-top {
 
 .card-title {
   margin: 0;
-  color: #2A2F5B;
+  color: #BB35E7;
   font-size: 20px;
   font-weight: 600;
   line-height: 1.6; }
   .card-title a, .card-title a:hover, .card-title a:focus {
-    color: #2A2F5B;
+    color: #BB35E7;
     text-decoration: none; }
 
 .card-sub {

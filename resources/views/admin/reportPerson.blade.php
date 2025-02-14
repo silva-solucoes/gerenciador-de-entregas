@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="card-action">
-                        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                        <button type="submit" class="btn btn-primary btn-round">Gerar Relatório</button>
                     </div>
                 </form>
             </div>

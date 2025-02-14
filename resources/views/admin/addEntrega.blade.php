@@ -147,23 +147,13 @@
 
         campoCPF.addEventListener("input", function() {
             let cursorPos = campoCPF.selectionStart;
-            let cpf = campoCPF.value.replace(/\D/g, "");
+            let cpf = campoCPF.value.replace(/\D/g, ""); // Remove caracteres não numéricos
 
             if (cpf.length > 11) {
                 cpf = cpf.substring(0, 11);
             }
 
-            let cpfFormatado = "";
-            for (let i = 0; i < cpf.length; i++) {
-                if (i === 3 || i === 6) {
-                    cpfFormatado += ".";
-                }
-                if (i === 9) {
-                    cpfFormatado += "-";
-                }
-                cpfFormatado += cpf[i];
-            }
-
+            let cpfFormatado = formatarCPF(cpf);
             let prevLength = campoCPF.value.length;
             campoCPF.value = cpfFormatado;
             let newLength = cpfFormatado.length;
@@ -174,6 +164,7 @@
                 buscarNomePeloCPF(cpf);
             } else {
                 campoNome.value = "";
+                campoNome.removeAttribute("readonly"); // Libera para edição caso o CPF seja incompleto
                 validarCampos();
             }
         });
@@ -184,20 +175,23 @@
                 .then(data => {
                     if (data.nome) {
                         campoNome.value = data.nome;
+                        campoNome.setAttribute("readonly", "true"); // Bloqueia edição se a API encontrar
                     } else {
-                        campoNome.value = "";
-                        mostrarModal('CPF informado não é válido.', cpf);
-                        botaoCadastrar.disabled = true;
+                        campoNome.value = ""; // Mantém vazio para o usuário preencher manualmente
+                        campoNome.removeAttribute("readonly"); // Habilita para edição manual
+                        mostrarModal('CPF não encontrado na base de dados. Insira o nome manualmente.', cpf);
                     }
                     validarCampos();
                 })
                 .catch(error => {
                     console.error('Erro ao buscar CPF:', error);
+                    campoNome.removeAttribute("readonly"); // Permite edição manual em caso de erro
+                    validarCampos();
                 });
         }
 
         function mostrarModal(mensagem, cpf) {
-            document.getElementById('cpfNumero').innerText = cpfFormatado(cpf);
+            document.getElementById('cpfNumero').innerText = formatarCPF(cpf);
             document.getElementById('cpfModalMensagem').innerText = mensagem;
 
             let modalElement = document.getElementById('cpfModal');
@@ -205,9 +199,11 @@
             modal.show();
         }
 
-        function cpfFormatado(cpf) {
+        function formatarCPF(cpf) {
             return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
         }
+
+        campoNome.addEventListener("input", validarCampos);
     });
 </script>
 

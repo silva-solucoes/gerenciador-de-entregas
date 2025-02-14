@@ -47,86 +47,44 @@
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">Lista de Entregas</h4>
                         <a href="{{route('admin.cadastrarEntrega')}}" class="btn btn-primary btn-round ms-auto"><i class="fa fa-plus"></i>
-                        Cadastrar Entrega</a>
+                            Cadastrar Entrega</a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables_length" id="add-row_length">
-                                        <label>Mostrar
-                                            <select name="add-row_length" aria-controls="add-row" class="form-control form-control-sm">
-                                                <option value="10">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select> registros
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div id="add-row_filter" class="dataTables_filter">
-                                        <label>Procurar:
-                                            <input type="search" class="form-control form-control-sm" placeholder="Pesquisar" aria-controls="add-row">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table id="add-row" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="add-row_info">
-                                        <thead>
-                                            <tr role="row">
-                                                <th>#</th>
-                                                <th>Folião</th>
-                                                <th>CPF</th> <!-- Nova Coluna -->
-                                                <th>Entregador</th>
-                                                <th>Data da Entrega</th>
-                                                <th>Ações</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($entregas as $entrega)
-                                            <tr>
-                                                <td>{{ $entrega->id }}</td>
-                                                <td>{{ $entrega->foliao }}</td>
-                                                <td>{{ preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $entrega->cpf) }}</td> <!-- Formatação CPF -->
-                                                <td>{{ $entrega->entregador }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($entrega->data_entrega)->format('d/m/Y H:i') }}</td>
-                                                <td>
-                                                    <div class="form-button-action">
-                                                        <button type="button" data-bs-toggle="tooltip" title="Editar" class="btn btn-link btn-primary btn-lg">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" data-bs-toggle="tooltip" title="Remover" class="btn btn-link btn-danger">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">
-                                        Mostrando {{ $entregas->firstItem() }} a {{ $entregas->lastItem() }} de {{ $entregas->total() }} registros
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-7">
-                                    <div class="dataTables_paginate paging_simple_numbers">
-                                        {{ $entregas->links() }}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                        <table id="basic-datatables" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Folião</th>
+                                    <th>CPF</th>
+                                    <th>Entregador</th>
+                                    <th>Data da Entrega</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($entregas as $entrega)
+                                <tr>
+                                    <td>{{ $entrega->id }}</td>
+                                    <td>{{ $entrega->foliao }}</td>
+                                    <td>{{ preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $entrega->cpf) }}</td> <!-- Formatação CPF -->
+                                    <td>{{ $entrega->entregador }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($entrega->data_entrega)->format('d/m/Y H:i') }}</td>
+                                    <td>
+                                        <div class="form-button-action">
+                                            <button type="button" data-bs-toggle="tooltip" title="Editar" class="btn btn-link btn-primary btn-lg">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" data-bs-toggle="tooltip" title="Remover" class="btn btn-link btn-danger">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -134,7 +92,54 @@
     </div>
 </div>
 
+@section('scripts')
 <script>
+    $(document).ready(function() {
+        $('#basic-datatables').DataTable({});
+
+        $('#multi-filter-select').DataTable({
+            "pageLength": 5,
+            initComplete: function() {
+                this.api().columns().every(function() {
+                    var column = this;
+                    var select = $('<select class="form-select"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+
+        // Add Row
+        $('#add-row').DataTable({
+            "pageLength": 5,
+        });
+
+        var action = '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+        $('#addRowButton').click(function() {
+            $('#add-row').dataTable().fnAddData([
+                $("#addName").val(),
+                $("#addPosition").val(),
+                $("#addOffice").val(),
+                action
+            ]);
+            $('#addRowModal').modal('hide');
+
+        });
+    });
+
     function previewImagem() {
         const input = document.getElementById('fotoPerfil');
         const preview = document.getElementById('previewFoto');
@@ -152,5 +157,5 @@
         }
     }
 </script>
-
+@endsection
 @endsection
