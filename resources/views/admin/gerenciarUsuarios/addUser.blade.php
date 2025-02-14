@@ -61,43 +61,55 @@
                                 <!-- Nome Completo -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="name" placeholder="Nome Completo" required />
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <input type="text" class="form-control text-uppercase" id="nomeCompleto" name="name" placeholder="Nome Completo" required />
+                                            <label for="nomeCompleto">Nome Completo</label>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- E-mail -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="email" placeholder="E-mail" required />
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required />
+                                            <label for="email">E-mail</label>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <input type="hidden" name="password" value="Carnaval@2025" />
 
                                 <!-- Função -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <select class="form-select" name="role" required>
-                                            <option value="operador" selected>Operador</option>
-                                            <option value="administrador">Administrador</option>
-                                        </select>
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <select class="form-control" id="funcao" name="role" required>
+                                                <option value="" disabled selected>Selecione a função</option>
+                                                <option value="admin">Administrador</option>
+                                                <option value="operador">Operador</option>
+                                            </select>
+                                            <label for="funcao">Função</label>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Status -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <select class="form-select" name="status" required>
-                                            <option value="inativo" selected>Inativo</option>
-                                            <option value="ativo">Ativo</option>
-                                        </select>
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <select class="form-control" id="status" name="status" required>
+                                                <option value="ativo">Ativo</option>
+                                                <option value="inativo">Inativo</option>
+                                            </select>
+                                            <label for="status">Status</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Botões de Ação -->
                             <div class="card-action">
-                                <button type="submit" class="btn btn-success">Cadastrar Usuário</button>
-                                <button type="button" class="btn btn-danger" onclick="window.history.back();">Cancelar</button>
+                                <button type="submit" class="btn btn-success btn-round">Cadastrar Usuário</button>
+                                <button type="button" class="btn btn-danger btn-round" onclick="window.history.back();">Cancelar</button>
                             </div>
                         </form>
                     </div>

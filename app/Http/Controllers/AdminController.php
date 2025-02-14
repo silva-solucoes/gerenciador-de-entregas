@@ -173,17 +173,30 @@ class AdminController extends Controller
 
     public function cadastrarUser(Request $request)
     {
+        // Garantir que role e status tenham valores padrão
+        $request->merge([
+            'role' => $request->role ?? 'operador',
+            'status' => $request->status ?? 'inativo',
+        ]);
+
         // Validação dos campos
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'role' => 'required|in:operador,administrador',
             'status' => 'required|in:ativo,inativo',
+        ], [
+            'name.required' => 'O campo Nome Completo é obrigatório.',
+            'email.required' => 'O campo E-mail é obrigatório.',
+            'email.email' => 'Insira um e-mail válido.',
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'role.required' => 'Selecione um tipo de usuário.',
+            'status.required' => 'Selecione um status.',
         ]);
 
         // Criar usuário com senha padrão
         $user = User::create([
-            'name' => $request->name,
+            'name' => strtoupper($request->name),
             'email' => $request->email,
             'password' => bcrypt('Carnaval@2025'), // Senha padrão
             'role' => $request->role ?? 'operador', // Padrão: Operador

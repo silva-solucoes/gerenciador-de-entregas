@@ -102,8 +102,8 @@
                             </div>
                             <!-- Botões de Ação -->
                             <div class="card-action">
-                                <button type="submit" class="btn btn-success">Atualizar Usuário</button>
-                                <button type="button" class="btn btn-danger" onclick="window.history.back();">Cancelar</button>
+                                <button type="submit" class="btn btn-success btn-round">Atualizar Usuário</button>
+                                <button type="button" class="btn btn-danger btn-round" onclick="window.history.back();">Cancelar</button>
                             </div>
                         </form>
                     </div>

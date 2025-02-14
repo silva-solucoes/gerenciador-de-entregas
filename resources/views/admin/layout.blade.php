@@ -14,7 +14,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Carnaval 2025 - Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" />
+    <link rel="icon" href="{{asset('img/logo-evento.png')}}" type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400&display=swap" rel="stylesheet">
