@@ -4,7 +4,11 @@ fazer o deploy na hostinger: https://dev.to/danroxha/deploy-automatico-na-hostin
 
 Vídeo: https://www.youtube.com/watch?v=Yl1yrRCxnPE
 
-<p align="center"><a href="https://boralajear.com.br/" target="_blank"><img src="{{asset('img/logo-evento.png')}}" width="400" alt="Laravel Logo"></a></p>
+<p align="center">
+  <a href="https://boralajear.com.br/" target="_blank">
+    <img src="public/img/logo-evento.png" width="400" alt="Laravel Logo">
+  </a>
+</p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
