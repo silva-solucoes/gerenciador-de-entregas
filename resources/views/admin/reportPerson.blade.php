@@ -51,13 +51,15 @@
                 <form action="{{route('admin.relatorio.entregas')}}" method="GET">
                     @csrf
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-lg-4">
                             <div class="form-group">
-                                <label>Tipo de Relatório</label>
-                                <select class="form-control" name="tipo_relatorio" required>
-                                    <option value="completo">Relatório Completo</option>
-                                    <option value="por_operador">Por Operador</option>
-                                </select>
+                                <div class="form-floating form-floating-custom mb-3">
+                                    <select class="form-control" name="tipo_relatorio" required>
+                                        <option value="completo">Relatório Completo</option>
+                                        <!--<option value="por_operador">Por Operador</option>-->
+                                    </select>
+                                    <label>Tipo de Relatório</label>
+                                </div>
                             </div>
                         </div>
 

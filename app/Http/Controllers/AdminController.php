@@ -232,6 +232,17 @@ class AdminController extends Controller
             ->with('success', 'Usuário atualizado com sucesso!');
     }
 
+    public function alterarStatus($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Alterna entre "ativo" e "inativo"
+        $user->status = $user->status === 'ativo' ? 'inativo' : 'ativo';
+        $user->save();
+
+        return redirect()->back()->with('success', 'Status do usuário atualizado com sucesso!');
+    }
+
     public function showRelatorio()
     {
         $operadores = User::where('role', 'operador')->get();

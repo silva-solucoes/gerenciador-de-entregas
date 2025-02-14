@@ -77,7 +77,14 @@
                                     <td>
                                         <div class="form-button-action">
                                             <a href="{{ route('admin.editarUser', ['encryptedId' => encrypt($usuario->id)]) }}" title="Editar" class="btn btn-link btn-primary btn-lg"><i class="fa fa-edit"></i></a>
-                                            <a href="" title="Bloquear" class="btn btn-link btn-danger"><i class="fa fa-times"></i></a>
+                                            <form action="{{ route('admin.alterarStatus', $usuario->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-link {{ $usuario->status == 'ativo' ? 'btn-danger' : 'btn-success' }}"
+                                                    title="{{ $usuario->status == 'ativo' ? 'Bloquear' : 'Desbloquear' }}">
+                                                    <i class="fa {{ $usuario->status == 'ativo' ? 'fa-times' : 'fa-check' }}"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

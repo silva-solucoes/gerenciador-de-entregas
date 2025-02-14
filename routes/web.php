@@ -62,6 +62,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::put('/admin/users/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
 
+    Route::put('/usuarios/{id}/alterar-status', [AdminController::class, 'alterarStatus'])->name('admin.alterarStatus');
+
     //Exibir legislações
     Route::get('admin/laws/visualizar', [AdminController::class, 'showFormLaws'])->name('admin.listLaws');
 

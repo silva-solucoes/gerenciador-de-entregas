@@ -127,7 +127,7 @@ $secondInitial = isset($names[1]) ? strtoupper(substr($names[1], 0, 1)) : ''; //
                             <ul class="nav nav-collapse">
                                 <li class="{{ Request::is('admin/relatorio/personalizado*') ? 'active' : '' }}"><a href="{{route('admin.showRelatorio')}}"><span class="sub-item">Relatórios Personalizáveis</span></a></li>
                                 <li><a href="{{ route('exportarEntregas') }}"><span class="sub-item">Exportação de Dados</span></a></li>
-                                <li><a href="#"><span class="sub-item">Análises Gráficas</span></a></li>
+                                <!--<li><a href="#"><span class="sub-item">Análises Gráficas</span></a></li>-->
                             </ul>
                         </div>
                     </li>

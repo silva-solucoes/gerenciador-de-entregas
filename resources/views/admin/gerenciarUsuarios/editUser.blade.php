@@ -55,56 +55,65 @@
                         <div class="card-title">Formulário de Edição de Usuário</div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.updateUser', $user->id) }}" method="POST">
+                        <form method="POST" action="{{ route('admin.updateUser', $user->id) }}">
                             @csrf
                             @method('PUT')
+
                             <div class="row">
-                                <!-- Nome Completo -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="name" value="{{ $user->name }}" required />
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}" required>
+                                            <label for="name">Nome Completo</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- E-mail -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" required />
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
+                                            <label for="email">E-mail</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Senha -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="password" value="{{ $user->password }}" placeholder="Digite uma nova senha" required />
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <select class="form-control" id="role" name="role" required>
+                                                <option value="operador" {{ $user->role == 'operador' ? 'selected' : '' }}>Operador</option>
+                                                <option value="administrador" {{ $user->role == 'administrador' ? 'selected' : '' }}>Administrador</option>
+                                            </select>
+                                            <label for="role">Função</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Função -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <select class="form-select" name="role" required>
-                                            <option value="operador" {{ $user->role == 'operador' ? 'selected' : '' }}>Operador</option>
-                                            <option value="administrador" {{ $user->role == 'admin' ? 'selected' : '' }}>Administrador</option>
-                                        </select>
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <select class="form-control" id="status" name="status" required>
+                                                <option value="ativo" {{ $user->status == 'ativo' ? 'selected' : '' }}>Ativo</option>
+                                                <option value="inativo" {{ $user->status == 'inativo' ? 'selected' : '' }}>Inativo</option>
+                                            </select>
+                                            <label for="status">Status</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Status -->
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <select class="form-select" name="status" required>
-                                            <option value="inativo" {{ $user->status == 'inativo' ? 'selected' : '' }}>Inativo</option>
-                                            <option value="ativo" {{ $user->status == 'ativo' ? 'selected' : '' }}>Ativo</option>
-                                        </select>
+                                        <div class="form-floating form-floating-custom mb-3">
+                                            <input type="password" class="form-control" id="password" name="password">
+                                            <label for="password">Nova Senha (deixe em branco para manter)</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Botões de Ação -->
-                            <div class="card-action">
-                                <button type="submit" class="btn btn-success btn-round">Atualizar Usuário</button>
-                                <button type="button" class="btn btn-danger btn-round" onclick="window.history.back();">Cancelar</button>
-                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-round">Atualizar Usuário</button>
+                            <button type="button" class="btn btn-danger btn-round" onclick="window.history.back();">Cancelar</button>
                         </form>
                     </div>
                 </div>
