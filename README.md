@@ -33,11 +33,35 @@ O sistema utiliza Laravel 11 com MySQL para armazenar os dados de forma segura. 
 
 ### Requisitos 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Laravel 11
+- PHP 8.2 ou superior
+- MySQL
+- Composer
+- GIT
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Comandos iniciais
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Terminal: Comando para instalar as dependências
+```
+composer instal
+```
+
+Duplicar o arquivo ".env.example" e renomear para ".env"
+
+Terminal: Comando para gerar a chave
+```
+php artisan key:generate
+```
+
+Terminal: Comando para iniciar o projeto criado com o Laravel
+```
+php artisan serve
+```
+
+Terminal: Comando para acessar o conteúdo padrão do Laravel
+```
+http://127.0.0.1:8000/
+```
 
 ## Laravel Sponsors
 
