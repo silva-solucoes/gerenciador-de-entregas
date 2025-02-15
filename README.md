@@ -1,8 +1,3 @@
-Lajes@prefeitura2025
-
-fazer o deploy na hostinger: https://dev.to/danroxha/deploy-automatico-na-hostinger-com-projeto-laravel-e-github-2bch
-
-Vídeo: https://www.youtube.com/watch?v=Yl1yrRCxnPE
 ## PROJETO WEB PARA PREFEITURA MUNICIPAL DE LAJES - GERENCIADOR DE ENTREGAS DE ABADÁS
 <p align="center">
   <a href="https://boralajear.com.br/" target="_blank">
@@ -98,3 +93,9 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Lajes@prefeitura2025
+
+fazer o deploy na hostinger: https://dev.to/danroxha/deploy-automatico-na-hostinger-com-projeto-laravel-e-github-2bch
+
+Vídeo: https://www.youtube.com/watch?v=Yl1yrRCxnPE
