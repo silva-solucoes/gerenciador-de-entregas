@@ -23,15 +23,15 @@ O presente sistema foi desenvolvido para gerenciar o controle de entrega de abad
 
 - ✅ Cadastro de foliões com nome e CPF, assegurando que cada pessoa receba seu abadá corretamente.
 - ✅ Entrega controlada por operadores, impedindo que um mesmo CPF receba múltiplas vezes.
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- ✅ Relatórios detalhados com histórico de entregas, permitindo acompanhamento da distribuição.
+- ✅ Gerenciamento de usuários com diferentes níveis de acesso, garantindo segurança e controle.
+- ✅ Interface amigável para facilitar o uso por administradores e operadores.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+O sistema utiliza Laravel 11 com MySQL para armazenar os dados de forma segura. Além disso, conta com um painel administrativo para gerenciar usuários, alterar status de foliões e gerar relatórios personalizados. Tudo isso visa garantir um Carnaval mais organizado e eficiente para os foliões e organizadores. 🎭🎊
 
-## Learning Laravel
+## BAIXEI O PROJETO, COMO FAÇO PARA RODÁ-LO?
+
+### Requisitos 
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
