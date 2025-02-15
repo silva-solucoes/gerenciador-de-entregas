@@ -17,12 +17,12 @@ Vídeo: https://www.youtube.com/watch?v=Yl1yrRCxnPE
     <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="Licença"></a>
 </p>
 
-## About Laravel
+## SOBRE O PROJETO
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O presente sistema foi desenvolvido para gerenciar o controle de entrega de abadás durante o Carnaval de Todos de 2025 em Lajes, garantindo organização e evitando duplicidade no cadastro e na entrega. Ele permite:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
+- ✅ Cadastro de foliões com nome e CPF, assegurando que cada pessoa receba seu abadá corretamente.
+- ✅ Entrega controlada por operadores, impedindo que um mesmo CPF receba múltiplas vezes.
 - Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
 - Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
 - Database agnostic [schema migrations](https://laravel.com/docs/migrations).
