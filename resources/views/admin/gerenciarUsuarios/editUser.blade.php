@@ -83,7 +83,7 @@
                                         <div class="form-floating form-floating-custom mb-3">
                                             <select class="form-control" id="role" name="role" required>
                                                 <option value="operador" {{ $user->role == 'operador' ? 'selected' : '' }}>Operador</option>
-                                                <option value="administrador" {{ $user->role == 'administrador' ? 'selected' : '' }}>Administrador</option>
+                                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Administrador</option>
                                             </select>
                                             <label for="role">Função</label>
                                         </div>

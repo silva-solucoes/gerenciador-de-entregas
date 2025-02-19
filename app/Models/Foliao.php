@@ -14,6 +14,7 @@ class Foliao extends Model
     protected $fillable = [
         'nome_completo',
         'cpf',
+        'tamanho',
         'abada_entregue'
     ];
 

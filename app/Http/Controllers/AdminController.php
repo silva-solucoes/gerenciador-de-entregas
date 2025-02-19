@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EstoqueAbada;
 use App\Models\Foliao;
 use App\Models\LogEntrega;
 use App\Models\User;
@@ -33,8 +34,35 @@ class AdminController extends Controller
             ->groupBy('data')
             ->orderBy('data')
             ->get();
+        // Consulta os estoques por tamanho
+        $estoqueM = EstoqueAbada::where('tamanho', 'M')->sum('quantidade');
+        $estoqueG = EstoqueAbada::where('tamanho', 'G')->sum('quantidade');
+        $estoqueGG = EstoqueAbada::where('tamanho', 'GG')->sum('quantidade');
 
-        return view('admin.index', compact('user', 'kitsEntregues', 'totalKitsEntregues', 'entregasPorDia'));
+        return view('admin.index', compact(
+            'user',
+            'kitsEntregues',
+            'totalKitsEntregues',
+            'entregasPorDia',
+            'estoqueM',
+            'estoqueG',
+            'estoqueGG'
+        ));
+    }
+
+    public function atualizar()
+    {
+        $totalKitsEntregues = LogEntrega::count();
+        $estoqueM = EstoqueAbada::where('tamanho', 'M')->sum('quantidade');
+        $estoqueG = EstoqueAbada::where('tamanho', 'G')->sum('quantidade');
+        $estoqueGG = EstoqueAbada::where('tamanho', 'GG')->sum('quantidade');
+
+        return response()->json([
+            'totalKitsEntregues' => $totalKitsEntregues,
+            'estoqueM' => $estoqueM,
+            'estoqueG' => $estoqueG,
+            'estoqueGG' => $estoqueGG,
+        ]);
     }
 
     public function showListaEntregas()
@@ -121,7 +149,14 @@ class AdminController extends Controller
 
     public function showFormEntrega()
     {
-        return view('admin.addEntrega');
+        $tamanhosDisponiveis = EstoqueAbada::where('quantidade', '>', 0)->get();
+        return view('admin.addEntrega', compact('tamanhosDisponiveis'));
+    }
+
+    public function getTamanhosDisponiveis()
+    {
+        $tamanhos = EstoqueAbada::where('quantidade', '>', 0)->get();
+        return response()->json($tamanhos);
     }
 
     public function cadastrarEntrega(Request $request)
@@ -135,30 +170,57 @@ class AdminController extends Controller
         })->exists();
 
         if ($foliaoJaRecebeu) {
-            return back()->with('error', '<b>Entrega não autorizado:</b> Este CPF <b>' . $request->cpf . '</b> já recebeu um abadá!');
+            return back()->with('error', '<b>Entrega não autorizada:</b> Este CPF <b>' . $request->cpf . '</b> já recebeu um abadá!');
         }
 
-        // Busca o folião pelo CPF
-        $foliao = Foliao::where('cpf', $cpf)->first();
+        // Verifica se há estoque disponível para o tamanho selecionado
+        $tamanho = $request->tamanho ?? $request->tamanho_abada;
+        $estoque = EstoqueAbada::where('tamanho', $tamanho)->first();
 
-        // Se o folião não existir, cadastra automaticamente
-        if (!$foliao) {
-            $foliao = Foliao::create([
-                'nome_completo' => $request->nome_completo,
-                'cpf' => $cpf, // Armazena o CPF sem formatação
-                'abada_entregue' => $request->quantidade,
+        if (!$estoque || $estoque->quantidade <= 0) {
+            return back()->with('error', 'Estoque insuficiente para o tamanho selecionado!');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // Busca o folião pelo CPF
+            $foliao = Foliao::where('cpf', $cpf)->first();
+
+            if (!$foliao) {
+                $foliao = Foliao::create([
+                    'nome_completo' => $request->nome_completo,
+                    'cpf' => $cpf,
+                    'abada_entregue' => $request->quantidade,
+                    'tamanho' => $tamanho,
+                ]);
+            }
+
+            // Registrar entrega do abadá
+            $logEntrega = LogEntrega::create([
+                'foliao_id' => $foliao->id,
+                'user_id' => auth()->id(),
+                'tamanho' => $tamanho,
+                'created_at' => now(),
             ]);
+
+            // Decrementa o estoque
+            $estoque->decrement('quantidade');
+
+            DB::commit();
+
+            return back()->with('success', 'Entrega cadastrada com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Registra o erro no log para análise
+            Log::error('Erro ao cadastrar entrega: ' . $e->getMessage(), ['exception' => $e]);
+
+            return back()->with('error', 'Erro ao registrar a entrega. Tente novamente.');
         }
-
-        // Cadastra a entrega do abadá
-        LogEntrega::create([
-            'foliao_id' => $foliao->id,
-            'user_id' => auth()->id(),
-            'created_at' => now(),
-        ]);
-
-        return back()->with('success', 'Entrega cadastrada com sucesso!');
     }
+
+
 
     public function showListUsers()
     {

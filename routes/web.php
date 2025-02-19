@@ -38,9 +38,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Painel de administração
     Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
+    Route::get('/estoque/atualizar', [AdminController::class, 'atualizar'])->name('estoque.atualizar');
+
     Route::get('admin/listar-entregas', [AdminController::class, 'showListaEntregas'])->name('admin.listaEntregas');
 
     Route::get('admin/cadastar-entrega', [AdminController::class, 'showFormEntrega'])->name('admin.cadastrarEntrega');
+
+    Route::get('/estoque/tamanhos', [AdminController::class, 'getTamanhosDisponiveis']);
 
     Route::get('/buscar-nome/{cpf}', [PortalTransparenciaController::class, 'buscarNome']);
 

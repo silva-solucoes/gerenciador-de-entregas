@@ -57,6 +57,63 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center esp-user bubble-shadow-small">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Abadás <b>M</b> Disponíveis</p>
+                                    <h4 class="card-title" id="estoqueM">{{ $estoqueM }} unidades</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center esp-user bubble-shadow-small">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Abadás <b>G</b> Disponíveis</p>
+                                    <h4 class="card-title" id="estoqueG">{{ $estoqueG }} unidades</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center esp-user bubble-shadow-small">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Abadás <b>GG</b> Disponíveis</p>
+                                    <h4 class="card-title" id="estoqueGG">{{ $estoqueGG }} unidades</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-12 col-md-12">
                 <div id="grafico-entregas" data-entregas="{{ json_encode($entregasPorDia) }}"></div>
 
@@ -140,6 +197,20 @@
             }
         });
     });
+
+    function atualizarEstoque() {
+        $.ajax({
+            url: "{{ route('estoque.atualizar') }}",
+            type: "GET",
+            success: function(data) {
+                $("#totalKitsEntregues").text(data.totalKitsEntregues + " entregas");
+                $("#estoqueM").text(data.estoqueM + " unidades");
+                $("#estoqueG").text(data.estoqueG + " unidades");
+                $("#estoqueGG").text(data.estoqueGG + " unidades");
+            }
+        });
+    }
+    setInterval(atualizarEstoque, 5000);
 </script>
 
 @endsection

@@ -60,7 +60,6 @@
                                     <th>CPF</th>
                                     <th>Entregador</th>
                                     <th>Data da Entrega</th>
-                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,16 +70,6 @@
                                     <td>{{ preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $entrega->cpf) }}</td> <!-- Formatação CPF -->
                                     <td>{{ $entrega->entregador }}</td>
                                     <td>{{ \Carbon\Carbon::parse($entrega->data_entrega)->format('d/m/Y H:i') }}</td>
-                                    <td>
-                                        <div class="form-button-action">
-                                            <button type="button" data-bs-toggle="tooltip" title="Editar" class="btn btn-link btn-primary btn-lg">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button type="button" data-bs-toggle="tooltip" title="Remover" class="btn btn-link btn-danger">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
