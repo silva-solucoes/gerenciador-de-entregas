@@ -75,6 +75,7 @@ class AdminController extends Controller
                 'logs_entregas.id',
                 'users.name as entregador',
                 'folioes.nome_completo as foliao',
+                'folioes.tamanho',
                 'folioes.cpf',
                 'logs_entregas.created_at as data_entrega'
             )
@@ -87,6 +88,7 @@ class AdminController extends Controller
                 'logs_entregas.id',
                 'users.name as entregador',
                 'folioes.nome_completo as foliao',
+                'folioes.tamanho',
                 'folioes.cpf',
                 'logs_entregas.created_at as data_entrega'
             )
@@ -106,6 +108,7 @@ class AdminController extends Controller
             'logs_entregas.id',
             'users.name as entregador',
             'folioes.nome_completo as foliao',
+            'folioes.tamanho',
             'folioes.cpf',
             'logs_entregas.created_at as data_entrega'
         )
@@ -317,6 +320,7 @@ class AdminController extends Controller
         $entregas = LogEntrega::select(
             'logs_entregas.id',
             'folioes.nome_completo as foliao',
+            'folioes.tamanho',
             'folioes.cpf',
             'folioes.abada_entregue as quantidade_kit',
             'users.name as operador',

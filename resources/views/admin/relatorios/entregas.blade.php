@@ -112,6 +112,7 @@
             <tr>
                 <th>#</th>
                 <th>Folião</th>
+                <th>Tamanho</th>
                 <th>CPF</th>
                 <th>Qtd. Kits</th>
                 <th>Operador</th>
@@ -123,6 +124,7 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td class="text-start">{{ mb_strtoupper($entrega->foliao, 'UTF-8') }}</td>
+                <td class="text-center">{{ $entrega->tamanho }}</td>
                 <td>{{ $entrega->cpf }}</td>
                 <td>{{ $entrega->quantidade_kit }}</td>
                 <td>{{ $entrega->operador }}</td>

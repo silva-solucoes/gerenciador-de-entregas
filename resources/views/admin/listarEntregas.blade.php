@@ -55,8 +55,8 @@
                         <table id="basic-datatables" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Folião</th>
+                                    <th>Tamanho</th>
                                     <th>CPF</th>
                                     <th>Entregador</th>
                                     <th>Data da Entrega</th>
@@ -65,8 +65,8 @@
                             <tbody>
                                 @foreach ($entregas as $entrega)
                                 <tr>
-                                    <td>{{ $entrega->id }}</td>
-                                    <td>{{ $entrega->foliao }}</td>
+                                    <td class="text-start">{{ $entrega->foliao }}</td>
+                                    <td class="text-center">{{ $entrega->tamanho }}</td>
                                     <td>{{ preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $entrega->cpf) }}</td> <!-- Formatação CPF -->
                                     <td>{{ $entrega->entregador }}</td>
                                     <td>{{ \Carbon\Carbon::parse($entrega->data_entrega)->format('d/m/Y H:i') }}</td>
